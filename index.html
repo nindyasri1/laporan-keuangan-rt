@@ -20,35 +20,59 @@
 <h2>Laporan Keuangan RT</h2>
 
 <div class="card">
-<form 
-  action="https://script.google.com/macros/s/AKfycby5hDXHir_DvDUq06lOCsXydOUA7A0nhnSvIfwEgv-lovYcucJkdfapT8VLC6GmwcuV/exec"
-  method="POST"
-  target="_blank"
->
-  <label>Tanggal</label>
+<form id="formKeuangan">
   <input type="date" name="tanggal" required>
-
-  <label>Keterangan</label>
-  <input type="text" name="keterangan" required>
-
-  <label>Uang Masuk</label>
-  <input type="number" name="masuk">
-
-  <label>Uang Keluar</label>
-  <input type="number" name="keluar">
+  <input type="text" name="keterangan" placeholder="Keterangan" required>
+  <input type="number" name="masuk" placeholder="Uang Masuk">
+  <input type="number" name="keluar" placeholder="Uang Keluar">
 
   <button type="submit">Simpan ke Spreadsheet</button>
-
-
-  <button onclick="logout()">Logout</button>
-
-  
-
 </form>
-</div>
+
+<button onclick="logout()">Logout</button>
+
+<div id="notif"></div>
+  
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycby5hDXHir_DvDUq06lOCsXydOUA7A0nhnSvIfwEgv-lovYcucJkdfapT8VLC6GmwcuV/exec"; // URL GAS
+const form = document.getElementById("formKeuangan");
+const notif = document.getElementById("notif");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault(); // ⛔ cegah halaman baru
+
+  notif.innerHTML = "⏳ Menyimpan data...";
+
+  const formData = new FormData(form);
+  formData.append("action", "simpan");
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(res => {
+    if (res === "OK") {
+      notif.innerHTML = "✅ Data berhasil disimpan";
+      form.reset();
+    } else {
+      notif.innerHTML = "❌ Gagal menyimpan data";
+    }
+  })
+  .catch(() => {
+    notif.innerHTML = "❌ Koneksi gagal";
+  });
+});
+
+function logout(){
+  localStorage.clear();
+  window.location.href = "login.html";
+}
+</script>
 
 </body>
 </html>
+
 
 
 
