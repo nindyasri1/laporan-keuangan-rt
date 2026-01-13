@@ -1,37 +1,104 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Login user</title>
-  <title>Perum nindya asri 1</title>
-<style>
-body { font-family: Arial; background:#f3f4f6; padding:50px }
-.card { background:#fff; padding:20px; max-width:400px; margin:auto; border-radius:10px }
-input, button { width:100%; padding:10px; margin:8px 0 }
-button { background:#2563eb; color:#fff; border:none; border-radius:6px }
-</style>
+  <meta charset="UTF-8">
+  <title>Login Laporan Keuangan RT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+    .login-box {
+      background: #fff;
+      width: 100%;
+      max-width: 380px;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.15);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      text-align: center;
+      color: #111827;
+    }
+    p {
+      margin: 0 0 24px;
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 6px 0 16px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #22c55e;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #16a34a;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s;
+    }
+    button:hover { background: #15803d }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+  </style>
 </head>
 <body>
 
-<div class="card">
-  <h3>Login User</h3>
-   <h3>PERUM NINDYA ASRI 1</h3>
+<div class="login-box">
+  <h1>USER LOGIN</h1>
+  <p>Sistem Laporan Keuangan RT</p>
+
   <form 
-    action="https://script.google.com/macros/s/AKfycbyqfzloFC8Q3gq14WSRohUYk0Qn8XYREIR0tAoYHxDAmcYN1ZLJ9joZ-9H2a0xFwfsg/exec"
+    action="PASTE_URL_APPS_SCRIPT"
     method="POST"
-    target="_self"
   >
     <input type="hidden" name="action" value="login">
 
-    <input name="username" placeholder="Username" required>
-    <input name="password" type="password" placeholder="Password" required>
+    <label>Username</label>
+    <input name="username" placeholder="Masukkan username" required>
 
-    <button type="submit">Login</button>
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Masukkan password" required>
+
+    <button type="submit">Masuk</button>
   </form>
+
+  <div class="footer">
+    © RT Digital
+  </div>
 </div>
 
 </body>
 </html>
-
-
-
