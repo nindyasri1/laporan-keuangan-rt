@@ -24,8 +24,9 @@
     <input type="text" name="keterangan" placeholder="Keterangan" required>
     <input type="number" name="masuk" placeholder="Uang Masuk">
     <input type="number" name="keluar" placeholder="Uang Keluar">
-  </form>
     <button type="submit">Simpan ke Spreadsheet</button>
+  </form>
+    
 
 
   <button onclick="logout()">Logout</button>
@@ -34,46 +35,9 @@
   <div id="notif"></div>
 </div>
 
-<!-- 🔥 SCRIPT PALING BAWAH -->
-<script>
-const scriptURL = "https://script.google.com/macros/s/AKfycby5hDXHir_DvDUq06lOCsXydOUA7A0nhnSvIfwEgv-lovYcucJkdfapT8VLC6GmwcuV/exec";
-
-const form = document.getElementById("formKeuangan");
-const notif = document.getElementById("notif");
-
-form.addEventListener("submit", function(e){
-  e.preventDefault(); // STOP reload
-
-  notif.innerHTML = "⏳ Menyimpan data...";
-
-  const formData = new FormData(form);
-  formData.append("action", "simpan");
-
-  fetch(scriptURL, {
-    method: "POST",
-    body: formData
-  })
-  .then(r => r.text())
-  .then(r => {
-    if (r.trim() === "OK") {
-      notif.innerHTML = "✅ Data berhasil disimpan";
-      form.reset();
-    } else {
-      notif.innerHTML = "❌ Gagal menyimpan data";
-    }
-  })
-  .catch(() => {
-    notif.innerHTML = "❌ Koneksi gagal";
-  });
-});
-
-function logout(){
-  localStorage.clear();
-  window.location.href = "login.html";
-}
-</script>
 
 </body>
 </html>
+
 
 
