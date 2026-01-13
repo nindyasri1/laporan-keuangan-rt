@@ -79,21 +79,20 @@
 <div class="login-box">
   <h1>USER LOGIN</h1>
   <p>Sistem Laporan Keuangan RT</p>
+  
+<form
+  action="https://script.google.com/macros/s/AKfycb5hDXHir_DvDUq06IOCsXydOUA7A0nhnSvIfwEgv-IovYcucJkdfapT8VLC6GmwcuV/exec"
+  method="POST"
+>
+  <input type="hidden" name="action" value="login">
 
-  <form 
-    action="https://script.google.com/macros/s/AKfycby5hDXHir_DvDUq06lOCsXydOUA7A0nhnSvIfwEgv-lovYcucJkdfapT8VLC6GmwcuV/exec"
-    method="POST"
-  >
-    <input type="hidden" name="action" value="login">
+  <input name="username" required>
+  <input type="password" name="password" required>
 
-    <label>Username</label>
-    <input name="username" placeholder="Masukkan username" required>
+  <button type="submit">Login</button>
+</form>
 
-    <label>Password</label>
-    <input type="password" name="password" placeholder="Masukkan password" required>
-
-    <button type="submit">Masuk</button>
-  </form>
+  
 
   <div class="footer">
     © RT Digital
@@ -102,5 +101,6 @@
 
 </body>
 </html>
+
 
 
