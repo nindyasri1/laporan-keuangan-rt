@@ -35,51 +35,42 @@
 
 <div id="notif"></div>
 
-
-  <div id="notif"></div>
-</div>
 <script>
 alert("JS AKTIF"); // DEBUG
 
 const form = document.getElementById("formKeuangan");
 const notif = document.getElementById("notif");
 
-if (!form) {
-  alert("FORM TIDAK DITEMUKAN");
-}
-
 form.addEventListener("submit", function(e){
-  alert("SUBMIT TERPANGGIL"); // DEBUG
   e.preventDefault();
+  alert("SUBMIT TERPANGGIL"); // DEBUG
 
   notif.innerHTML = "⏳ Menyimpan data...";
 
   const formData = new FormData(form);
-  formData.append("action","simpan");
 
-  fetch("https://script.google.com/macros/s/AKfycbx3rJ5FG_PAHLRfZf_nO3lvoZuwuMJDuOjtHe1kec1EbJxKIiark0jm1VsCdcEtobPX/exec",{
-    method:"POST",
-    body:formData
+  fetch("https://script.google.com/macros/s/AKfycbx3rJ5FG_PAHLRfZf_nO3lvoZuwuMJDuOjtHe1kec1EbJxKIiark0jm1VsCdcEtobPX/exec", {
+    method: "POST",
+    body: formData
   })
-  .then(r=>r.text())
-  .then(r=>{
-    notif.innerHTML = r.trim()==="OK"
-      ? "✅ Data berhasil disimpan"
-      : "❌ Gagal menyimpan data";
+  .then(r => r.text())
+  .then(r => {
+    notif.innerHTML =
+      r.trim() === "OK"
+        ? "✅ Data berhasil disimpan"
+        : "❌ Gagal menyimpan data: " + r;
   })
-  .catch(()=>{
-    notif.innerHTML="❌ Koneksi gagal";
+  .catch(err => {
+    console.error(err);
+    notif.innerHTML = "❌ Koneksi gagal";
   });
 });
-  fetch(scriptURL, {
-  method: "POST",
-  body: new FormData(form)
-})
-
 </script>
+
 
 </body>
 </html>
+
 
 
 
