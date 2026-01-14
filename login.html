@@ -19,26 +19,28 @@ body{font-family:Arial;display:flex;justify-content:center;align-items:center;he
 </div>
 
 <script>
-  body: new URLSearchParams({
-  action: 'login',
-  password: document.getElementById('pw').value
-})
 function login(){
+  const password = document.getElementById('pw').value;
+
   fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec', {
     method: 'POST',
-    body: new URLSearchParams({ test: '1' })
+    body: new URLSearchParams({
+      action: 'login',
+      password: password
+    })
   })
-.then(res => res.text())
-.then(res => {
-  console.log(res); // ⬅️ tambahkan ini
-  if(res.trim() === 'success'){
-    sessionStorage.setItem('admin','true');
-    location.href='admin.html';
-  } else {
-    document.getElementById('msg').innerText='Gagal login';
-  }
-})
-.catch(err=>{
+  .then(res => res.text())
+  .then(res => {
+    console.log('RESPON SERVER:', res);
+
+    if(res.trim() === 'success'){
+      sessionStorage.setItem('admin','true');
+      location.href = 'admin.html';
+    } else {
+      document.getElementById('msg').innerText = 'Password salah';
+    }
+  })
+  .catch(err => {
     document.getElementById('msg').innerText = 'Koneksi gagal';
     console.error(err);
   });
@@ -47,6 +49,7 @@ function login(){
 
 </body>
 </html>
+
 
 
 
