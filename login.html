@@ -17,23 +17,33 @@ body{font-family:Arial;display:flex;justify-content:center;align-items:center;he
 </div>
 <script>
 function login(){
-fetch('https://script.google.com/macros/s/AKfycbxqV0mHgG9Q1NVk5hKajsfN8CsTmgniNueS2ykBySGHhnGof0qd2Y5VJcdG8G5oCQRU/exec',{
-method:'POST',
-headers:{'Content-Type':'application/x-www-form-urlencoded'},
-body:'action=login&password='+document.getElementById('pw').value
-})
-.then(r=>r.text())
-.then(res=>{
-if(res==='success'){
-sessionStorage.setItem('admin','true');
-location.href='admin.html';
-}else{
-document.getElementById('msg').innerText='Password salah';
-}
-})
+  const pw = document.getElementById('pw').value;
+  const formData = new URLSearchParams();
+  formData.append('action','login');
+  formData.append('password', pw);
+
+  fetch('https://script.google.com/macros/s/AKfycbxqV0mHgG9Q1NVk5hKajsfN8CsTmgniNueS2ykBySGHhnGof0qd2Y5VJcdG8G5oCQRU/exec', {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.text())
+  .then(res => {
+    if(res.trim() === 'success'){
+      sessionStorage.setItem('admin','true');
+      location.href = 'admin.html';
+    } else {
+      document.getElementById('msg').innerText = 'Password salah';
+    }
+  })
+  .catch(err=>{
+    document.getElementById('msg').innerText = 'Koneksi gagal';
+    console.error(err);
+  });
 }
 </script>
+
 </body>
 
 </html>
+
 
