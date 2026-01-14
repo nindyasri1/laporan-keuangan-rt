@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="id">
+  
 <head>
   <meta charset="UTF-8">
   <title>Laporan Keuangan RT Online</title>
@@ -22,6 +23,7 @@
 <h2>Laporan Keuangan Nindya 1</h2>
 
 <form id="formKeuangan" method="post">
+  
   <input type="date" name="tanggal" required>
   <input type="text" name="keterangan" required>
   <input type="number" name="masuk">
@@ -69,10 +71,16 @@ form.addEventListener("submit", function(e){
     notif.innerHTML="❌ Koneksi gagal";
   });
 });
+  fetch(scriptURL, {
+  method: "POST",
+  body: new FormData(form)
+})
+
 </script>
 
 </body>
 </html>
+
 
 
 
