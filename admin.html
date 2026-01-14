@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+<div style="display:flex;justify-content:space-between">
+  <h3>Admin Keuangan RT</h3>
+  <button onclick="logout()">Logout</button>
+</div>
+
 <head>
 <meta charset="UTF-8">
 <title>Admin Keuangan RT</title>
@@ -19,6 +24,7 @@
 <button onclick="simpan()">Simpan</button>
 
 <p id="msg"></p>
+<button onclick="logout()">Logout</button>
 
 <script>
 function simpan(){
@@ -45,10 +51,22 @@ function simpan(){
     console.error(err);
   });
 }
+
+function logout(){
+  sessionStorage.removeItem('admin');
+  location.href = 'login.html';
+}
+<script>
+if (sessionStorage.getItem('admin') !== 'true') {
+  location.href = 'login.html';
+}
+</script>
+
 </script>
 
 </body>
 </html>
+
 
 
 
