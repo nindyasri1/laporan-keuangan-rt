@@ -21,64 +21,59 @@
 
 <h2>Laporan Keuangan nindya 1</h2>
 
-<div class="card">
-  <form id="formKeuangan" method="post">
-    <input type="date" name="tanggal" required>
-    <input type="text" name="keterangan" placeholder="Keterangan" required>
-    <input type="number" name="masuk" placeholder="Uang Masuk">
-    <input type="number" name="keluar" placeholder="Uang Keluar">
-    <button type="submit">Simpan ke Spreadsheet</button>
-  </form>
-    
-<!-- 🔥 SCRIPT PALING BAWAH -->
+<form id="formKeuangan" method="post">
+  <input type="date" name="tanggal" required>
+  <input type="text" name="keterangan" required>
+  <input type="number" name="masuk">
+  <input type="number" name="keluar">
+
+  <!-- 🔥 tombol HARUS di dalam form -->
+  <button type="submit">Simpan ke Spreadsheet</button>
+</form>
+
+<div id="notif"></div>
+
+
+  <div id="notif"></div>
+</div>
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycby5hDXHir_DvDUq06lOCsXydOUA7A0nhnSvIfwEgv-lovYcucJkdfapT8VLC6GmwcuV/exec";
+alert("JS AKTIF"); // DEBUG
 
 const form = document.getElementById("formKeuangan");
 const notif = document.getElementById("notif");
 
+if (!form) {
+  alert("FORM TIDAK DITEMUKAN");
+}
+
 form.addEventListener("submit", function(e){
-  e.preventDefault(); // STOP reload
+  alert("SUBMIT TERPANGGIL"); // DEBUG
+  e.preventDefault();
 
   notif.innerHTML = "⏳ Menyimpan data...";
 
   const formData = new FormData(form);
-  formData.append("action", "simpan");
+  formData.append("action","simpan");
 
-  fetch(scriptURL, {
-    method: "POST",
-    body: formData
+  fetch("https://script.google.com/macros/s/AKfycby5hDXHir_DvDUq06lOCsXydOUA7A0nhnSvIfwEgv-lovYcucJkdfapT8VLC6GmwcuV/exec",{
+    method:"POST",
+    body:formData
   })
-  .then(r => r.text())
-  .then(r => {
-    if (r.trim() === "OK") {
-      notif.innerHTML = "✅ Data berhasil disimpan";
-      form.reset();
-    } else {
-      notif.innerHTML = "❌ Gagal menyimpan data";
-    }
+  .then(r=>r.text())
+  .then(r=>{
+    notif.innerHTML = r.trim()==="OK"
+      ? "✅ Data berhasil disimpan"
+      : "❌ Gagal menyimpan data";
   })
-  .catch(() => {
-    notif.innerHTML = "❌ Koneksi gagal";
+  .catch(()=>{
+    notif.innerHTML="❌ Koneksi gagal";
   });
 });
-
-function logout(){
-  localStorage.clear();
-  window.location.href = "login.html";
-}
 </script>
-
-
-
-
-
-  <!-- 🔥 notif HARUS sebelum script -->
-  <div id="notif"></div>
-</div>
 
 </body>
 </html>
+
 
 
 
