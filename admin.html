@@ -42,6 +42,7 @@ body {
 }
 
 .header h3 {
+  text-align: center;
   margin: 0;
   color: #065f46;
 }
@@ -137,7 +138,7 @@ if (sessionStorage.getItem('admin') !== 'true') {
       <h3>SELAMAT DATANG DI WEBSITE
       LAPORAN KEUANGAN PERUM NINDYA ASRI 1
       KEL.METESEH KEC.BOJA , KAB.KENDAL</h3>
-      <button class="logout" onclick="logout()">Logout</button>
+
     </div>
 
     <h4>Silahkan Input</h4>
@@ -158,13 +159,13 @@ if (sessionStorage.getItem('admin') !== 'true') {
     <input type="number" id="jumlah" placeholder="Rp">
 
     <button class="simpan" onclick="simpan()">💾 Simpan Data</button>
-
+   <button class="logout" onclick="logout()">Logout</button>
     <div id="msg"></div>
 
   </div>
 
   <div class="footer">
-    © Perum Nindya Asri 1 — RT
+    © 2026 — Andy Pram
   </div>
 </div>
 
@@ -201,5 +202,6 @@ function logout(){
 
 </body>
 </html>
+
 
 
