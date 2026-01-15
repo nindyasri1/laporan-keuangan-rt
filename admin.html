@@ -119,6 +119,24 @@ button.simpan:hover {
   font-size: 12px;
   color: #e5e7eb;
 }
+.logout-fixed{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 9999; /* 🔥 biar selalu di atas */
+}
+
+.logout-fixed:hover{
+  background: #dc2626;
+}
 </style>
 </head>
 
@@ -159,7 +177,7 @@ if (sessionStorage.getItem('admin') !== 'true') {
     <input type="number" id="jumlah" placeholder="Rp">
 
     <button class="simpan" onclick="simpan()">💾 Simpan Data</button>
-   <button class="logout" onclick="logout()">Logout</button>
+   <button class="logout-fixed" title="Logout">🚪</button>
     <div id="msg"></div>
 
   </div>
@@ -198,10 +216,18 @@ function logout(){
   sessionStorage.removeItem('admin');
   location.href = 'login.html';
 }
+  function logout(){
+  if(confirm("Yakin ingin logout?")){
+    sessionStorage.clear();
+    location.href = "login.html";
+  }
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
