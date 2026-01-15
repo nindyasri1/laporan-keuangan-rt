@@ -51,28 +51,35 @@ body::before{
   margin-bottom:15px;
 }
 
-.box input{
-  text-align: center;
+.box input,
+.box button{
   width:100%;
-  padding:10px;
+  height:44px;           /* 🔥 sama tinggi */
+  text-align:center;
+  font-size:14px;
+  border-radius:6px;
+}
+
+.box input{
+  border:1px solid #d1d5db;
   margin-bottom:10px;
 }
 
 .box button{
-  text-align: center;
-  width:100%;
-  padding:10px;
   background:#2563eb;
   color:white;
   border:none;
-  border-radius:6px;
   cursor:pointer;
 }
 
 .box button:hover{
   background:#1d4ed8;
 }
-
+.box input:focus{
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 0 2px rgba(37,99,235,.2);
+}
 #msg{
   margin-top:10px;
   color:red;
@@ -134,6 +141,7 @@ function login(){
 
 </body>
 </html>
+
 
 
 
