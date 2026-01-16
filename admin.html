@@ -366,7 +366,7 @@ if(sessionStorage.getItem('admin')!=='true'){
 <div style="display:flex; gap:8px; margin:10px 0; flex-wrap:wrap">
   <input type="date" id="filterMulai">
   <input type="date" id="filterAkhir">
-  <button class="btn-send" onclick="loadLaporan()">🔍 Filter</button>
+  <button type="button" class="btn-send" onclick="loadLaporan(event)">🔍 Filter</button>
 </div>
 
 <!-- TOTAL SALDO -->
@@ -658,6 +658,7 @@ function loadLaporan(){
 
 </body>
 </html>
+
 
 
 
