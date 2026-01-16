@@ -362,6 +362,25 @@ if(sessionStorage.getItem('admin')!=='true'){
 <li>
   <a href="#" onclick="openLaporan()">
     📊 <span class="text">Laporan</span>
+    <!-- FILTER -->
+<div style="display:flex; gap:8px; margin:10px 0; flex-wrap:wrap">
+  <input type="date" id="filterMulai">
+  <input type="date" id="filterAkhir">
+  <button class="btn-send" onclick="loadLaporan()">🔍 Filter</button>
+</div>
+
+<!-- TOTAL SALDO -->
+<div style="
+  margin:10px 0;
+  padding:10px;
+  border-radius:12px;
+  background:#f0fdf4;
+  font-weight:700;
+  color:#065f46;
+  text-align:center;">
+  Total Saldo: <span id="totalSaldo">Rp 0</span>
+</div>
+
   </a>
 </li>
     <li><a href="#"><span>👥</span><span class="text">Data Warga</span></a></li>
@@ -534,28 +553,50 @@ function openLaporan(){
   document.getElementById('laporanModal').style.display='flex';
   loadLaporan();
 }
-
 function closeLaporan(){
   document.getElementById('laporanModal').style.display='none';
 }
-
 function loadLaporan(){
   const body = document.getElementById('laporanBody');
+  const tglMulai = document.getElementById('filterMulai').value;
+  const tglAkhir = document.getElementById('filterAkhir').value;
+  const totalEl = document.getElementById('totalSaldo');
+
   body.innerHTML = '<tr><td colspan="4">⏳ Memuat...</td></tr>';
+  totalEl.innerText = 'Rp 0';
 
   fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec')
     .then(res => res.json())
     .then(data => {
       body.innerHTML = '';
+      let total = 0;
+
       data.reverse().forEach(r => {
+        const tgl = r[0]; // tanggal
+        const jenis = r[1];
+        const ket = r[2];
+        const jumlah = Number(r[3]);
+
+        // FILTER TANGGAL
+        if(
+          (tglMulai && tgl < tglMulai) ||
+          (tglAkhir && tgl > tglAkhir)
+        ) return;
+
+        // HITUNG SALDO
+        if(jenis === 'Pemasukan') total += jumlah;
+        else total -= jumlah;
+
         body.innerHTML += `
           <tr>
-            <td>${r[0]}</td>
-            <td>${r[1]}</td>
-            <td>${r[2]}</td>
-            <td>Rp ${Number(r[3]).toLocaleString('id-ID')}</td>
+            <td>${tgl}</td>
+            <td>${jenis}</td>
+            <td>${ket}</td>
+            <td>Rp ${jumlah.toLocaleString('id-ID')}</td>
           </tr>`;
       });
+
+      totalEl.innerText = 'Rp ' + total.toLocaleString('id-ID');
     })
     .catch(()=>{
       body.innerHTML='<tr><td colspan="4">❌ Gagal memuat data</td></tr>';
@@ -614,6 +655,7 @@ function loadLaporan(){
 
 </body>
 </html>
+
 
 
 
