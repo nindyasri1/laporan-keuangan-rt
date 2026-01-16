@@ -597,6 +597,9 @@ function loadLaporan(){
       });
 
       totalEl.innerText = 'Rp ' + total.toLocaleString('id-ID');
+        // ✅ TARUH DI SINI
+  totalEl.innerText = 'Rp ' + total.toLocaleString('id-ID');
+  totalEl.style.color = total < 0 ? '#dc2626' : '#15803d';
     })
     .catch(()=>{
       body.innerHTML='<tr><td colspan="4">❌ Gagal memuat data</td></tr>';
@@ -655,6 +658,7 @@ function loadLaporan(){
 
 </body>
 </html>
+
 
 
 
