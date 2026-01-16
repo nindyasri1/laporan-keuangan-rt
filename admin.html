@@ -292,6 +292,45 @@ button.simpan:hover{
   padding:12px;
   flex:1;
 }
+/* POP UP LAPORAN */
+.laporan-box{
+  max-width:720px;
+}
+
+.table-wrap{
+  max-height:320px;
+  overflow:auto;
+  margin-top:12px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+th{
+  background:#16a34a;
+  color:white;
+  padding:10px;
+  position:sticky;
+  top:0;
+}
+
+td{
+  padding:8px;
+  border-bottom:1px solid #e5e7eb;
+}
+
+tr:nth-child(even){
+  background:#f9fafb;
+}
+
+td:last-child{
+  text-align:right;
+  font-weight:600;
+  color:#065f46;
+}
 
 </style>
 </head>
@@ -320,7 +359,11 @@ if(sessionStorage.getItem('admin')!=='true'){
     ➕ <span class="text">Input Data</span>
   </a>
 </li>
-    <li><a href="#"><span>📊</span><span class="text">Laporan</span></a></li>
+<li>
+  <a href="#" onclick="openLaporan()">
+    📊 <span class="text">Laporan</span>
+  </a>
+</li>
     <li><a href="#"><span>👥</span><span class="text">Data Warga</span></a></li>
 <li>
   <a href="#" onclick="openLapor()">
@@ -484,6 +527,40 @@ function kirimLapor(){
     msg.innerText='❌ Gagal mengirim';
   });
 }
+   // SCRIPT MENU POPUP LAPORAN 
+<script>
+function openLaporan(){
+  document.getElementById('laporanModal').style.display='flex';
+  loadLaporan();
+}
+
+function closeLaporan(){
+  document.getElementById('laporanModal').style.display='none';
+}
+
+function loadLaporan(){
+  const body = document.getElementById('laporanBody');
+  body.innerHTML = '<tr><td colspan="4">⏳ Memuat...</td></tr>';
+
+  fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec')
+    .then(res => res.json())
+    .then(data => {
+      body.innerHTML = '';
+      data.reverse().forEach(r => {
+        body.innerHTML += `
+          <tr>
+            <td>${r[0]}</td>
+            <td>${r[1]}</td>
+            <td>${r[2]}</td>
+            <td>Rp ${Number(r[3]).toLocaleString('id-ID')}</td>
+          </tr>`;
+      });
+    })
+    .catch(()=>{
+      body.innerHTML='<tr><td colspan="4">❌ Gagal memuat data</td></tr>';
+    });
+}
+</script>
 
 </script>
 <!-- POPUP LAPOR & SARAN -->
@@ -506,9 +583,37 @@ function kirimLapor(){
     <div id="laporMsg"></div>
   </div>
 </div>
+<!-- POPUP LAPORAN -->
+<div class="modal" id="laporanModal">
+  <div class="modal-box laporan-box">
+
+    <h3>📊 Laporan Keuangan RT</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Jenis</th>
+            <th>Keterangan</th>
+            <th>Jumlah</th>
+          </tr>
+        </thead>
+        <tbody id="laporanBody">
+          <tr>
+            <td colspan="4" style="text-align:center">⏳ Memuat data...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="btn-ok" onclick="closeLaporan()">Tutup</button>
+  </div>
+</div>
 
 </body>
 </html>
+
 
 
 
