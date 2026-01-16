@@ -199,7 +199,41 @@ function logout(){
 function simpan(){
   document.getElementById('msg').innerText='⏳ Menyimpan...';
 }
+
+function simpan(){
+  const msg = document.getElementById('msg');
+  msg.innerText = '⏳ Menyimpan...';
+
+  fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec', {
+    method: 'POST',
+    body: new URLSearchParams({
+      tanggal: document.getElementById('tanggal').value,
+      jenis: document.getElementById('jenis').value,
+      keterangan: document.getElementById('keterangan').value,
+      jumlah: document.getElementById('jumlah').value
+    })
+  })
+  .then(res => res.text())
+  .then(res => {
+    if(res.trim() === 'OK'){
+      msg.innerText = '✅ Data berhasil disimpan';
+
+      // reset form
+      document.getElementById('tanggal').value = '';
+      document.getElementById('keterangan').value = '';
+      document.getElementById('jumlah').value = '';
+    } else {
+      msg.innerText = '❌ Gagal menyimpan data';
+    }
+  })
+  .catch(err => {
+    msg.innerText = '❌ Koneksi gagal';
+    console.error(err);
+  });
+}
+
 </script>
 
 </body>
 </html>
+
