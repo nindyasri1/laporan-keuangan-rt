@@ -597,7 +597,6 @@ function closeLaporan(){
   document.getElementById('laporanModal').style.display='none';
 }
 function loadLaporan(){
-  if(e) e.preventDefault();
   const body = document.getElementById('laporanBody');
   const tglMulai = document.getElementById('filterMulai').value;
   const tglAkhir = document.getElementById('filterAkhir').value;
@@ -613,18 +612,16 @@ function loadLaporan(){
       let total = 0;
 
       data.reverse().forEach(r => {
-        const tgl = r[0]; // tanggal
+        const tgl = r[0];
         const jenis = r[1];
         const ket = r[2];
         const jumlah = Number(r[3]);
 
-        // FILTER TANGGAL
         if(
           (tglMulai && tgl < tglMulai) ||
           (tglAkhir && tgl > tglAkhir)
         ) return;
 
-        // HITUNG SALDO
         if(jenis === 'Pemasukan') total += jumlah;
         else total -= jumlah;
 
@@ -638,9 +635,7 @@ function loadLaporan(){
       });
 
       totalEl.innerText = 'Rp ' + total.toLocaleString('id-ID');
-        // ✅ TARUH DI SINI
-  totalEl.innerText = 'Rp ' + total.toLocaleString('id-ID');
-  totalEl.style.color = total < 0 ? '#dc2626' : '#15803d';
+      totalEl.style.color = total < 0 ? '#dc2626' : '#15803d';
     })
     .catch(()=>{
       body.innerHTML='<tr><td colspan="4">❌ Gagal memuat data</td></tr>';
@@ -699,6 +694,7 @@ function loadLaporan(){
 
 </body>
 </html>
+
 
 
 
