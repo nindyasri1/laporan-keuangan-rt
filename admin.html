@@ -435,22 +435,21 @@ function kirimLapor(){
   fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec', {
     method:'POST',
     body:new URLSearchParams({
-      nama:document.getElementById('laporNama').value,
-      pesan:document.getElementById('laporPesan').value,
-      jenis:'Lapor & Saran'
+      action: 'lapor',
+      nama: document.getElementById('laporNama').value,
+      pesan: document.getElementById('laporPesan').value
     })
   })
   .then(res=>res.text())
   .then(()=>{
     msg.innerText='✅ Terima kasih atas masukannya';
-    document.getElementById('laporNama').value='';
-    document.getElementById('laporPesan').value='';
     setTimeout(closeLapor,1500);
   })
   .catch(()=>{
     msg.innerText='❌ Gagal mengirim';
   });
 }
+
 </script>
 <!-- POPUP LAPOR & SARAN -->
 <div class="modal" id="laporModal">
@@ -475,6 +474,7 @@ function kirimLapor(){
 
 </body>
 </html>
+
 
 
 
