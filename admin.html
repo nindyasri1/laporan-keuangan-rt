@@ -6,319 +6,200 @@
 <title>PERUM NINDYA ASRI 1</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:linear-gradient(135deg,#16a34a,#22c55e);
 }
 
-/* WRAPPER */
-.wrapper {
-  width: 100%;
-  max-width: 420px;
+/* ========== SIDEBAR ========== */
+.sidebar{
+  position:fixed;
+  top:0;left:0;
+  width:220px;
+  height:100vh;
+  background:#15803d;
+  color:#fff;
+  padding:16px;
+  transition:.3s;
+  z-index:1000;
+}
+.sidebar.collapsed{
+  width:70px;
+}
+.sidebar .logo{
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:20px;
+}
+.sidebar ul{
+  list-style:none;
+}
+.sidebar ul li a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  color:white;
+  text-decoration:none;
+  border-radius:10px;
+  margin-bottom:6px;
+}
+.sidebar ul li a:hover{
+  background:#166534;
+}
+.sidebar.collapsed .text{
+  display:none;
 }
 
-/* CARD */
-.card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+/* TOGGLE */
+.toggle-btn{
+  position:absolute;
+  top:16px;
+  right:-15px;
+  background:#22c55e;
+  border:none;
+  color:white;
+  padding:6px 10px;
+  border-radius:50%;
+  cursor:pointer;
 }
 
-/* HEADER */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+/* ========== CONTENT ========== */
+.content{
+  margin-left:220px;
+  padding:40px 20px;
+  transition:.3s;
+}
+.sidebar.collapsed ~ .content{
+  margin-left:70px;
 }
 
-.header h3 {
-  text-align: center;
-  margin: 0;
-  color: #065f46;
+/* ========== CARD FORM ========== */
+.wrapper{
+  max-width:420px;
+  margin:auto;
 }
-
-.logout {
-  background: #ef4444;
-  border: none;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 10px;
-  cursor: pointer;
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
 }
-
-.logout:hover {
-  background: #dc2626;
+h3,h4{
+  text-align:center;
+  color:#065f46;
+  margin-bottom:14px;
 }
-
-h4 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #065f46;
+label{
+  display:block;
+  margin-top:12px;
+  font-weight:600;
+  font-size:14px;
 }
-
-/* FORM */
-label {
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 12px;
-  display: block;
+input,select{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:12px;
+  border:1px solid #d1d5db;
 }
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 6px;
-  border-radius: 12px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
+button.simpan{
+  width:100%;
+  margin-top:18px;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:#16a34a;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
-
-input:focus, select:focus {
-  outline: none;
-  border-color: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34,197,94,.2);
+button.simpan:hover{
+  background:#15803d;
 }
-
-button.simpan {
-  width: 100%;
-  margin-top: 18px;
-  padding: 12px;
-  border-radius: 14px;
-  border: none;
-  background: #16a34a;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button.simpan:hover {
-  background: #15803d;
-}
-
-#msg {
-  margin-top: 14px;
-  text-align: center;
-  font-weight: bold;
+#msg{
+  text-align:center;
+  margin-top:10px;
+  font-weight:bold;
 }
 
 /* FOOTER */
-.footer {
-  text-align: center;
-  margin-top: 14px;
-  font-size: 12px;
-  color: #e5e7eb;
+.footer{
+  text-align:center;
+  margin-top:14px;
+  font-size:12px;
+  color:#e5e7eb;
 }
-.logout-fixed{
-  position: fixed;
-  top: 20px;
-  right: 20px;
-
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  z-index: 9999; /* 🔥 biar selalu di atas */
-}
-
-.logout-fixed:hover{
-  background: #dc2626;
-}
-  /* SIDEBAR */
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 220px;
-  height: 100vh;
-  background: #15803d;
-  padding: 20px 14px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
-}
-
-.sidebar-title {
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-
-/* MENU ITEM */
-.menu {
-  display: block;
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  transition: background .2s ease;
-}
-
-.menu:hover {
-  background: #166534;
-}
-
-.menu.active {
-  background: #22c55e;
-  font-weight: bold;
-}
-
-/* BOTTOM */
-.sidebar-bottom {
-  margin-top: auto;
-}
-
-.sidebar-bottom button {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #ef4444;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.sidebar-bottom button:hover {
-  background: #dc2626;
-}
-body {
-  margin-left: 220px;
-}
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-
-  body {
-    margin-left: 0;
-  }
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 PROTEKSI LOGIN -->
 <script>
-if (sessionStorage.getItem('admin') !== 'true') {
-  location.href = 'login.html';
+if(sessionStorage.getItem('admin')!=='true'){
+  location.href='login.html';
 }
 </script>
-  
+
 <!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="sidebar-title">MENU</div>
-
-  <a href="index.html" class="menu active">🏠 Dashboard</a>
-  <a href="input.html" class="menu">➕ Input Data</a>
-  <a href="laporan.html" class="menu">📊 Laporan</a>
-  <a href="rekap.html" class="menu">📁 Rekap Bulanan</a>
-  <a href="warga.html" class="menu">👥 Data Warga</a>
-
-  <div class="sidebar-bottom">
-    <button onclick="logout()">🚪 Logout</button>
-  </div>
+<div class="sidebar" id="sidebar">
+  <div class="logo">RT 01</div>
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+  <ul>
+    <li><a href="#"><span>🏠</span><span class="text">Dashboard</span></a></li>
+    <li><a href="#"><span>➕</span><span class="text">Input Data</span></a></li>
+    <li><a href="#"><span>📊</span><span class="text">Laporan</span></a></li>
+    <li><a href="#"><span>👥</span><span class="text">Data Warga</span></a></li>
+    <li><a href="#" onclick="logout()"><span>🚪</span><span class="text">Logout</span></a></li>
+  </ul>
 </div>
 
-<div class="wrapper">
-  <div class="card">
+<!-- CONTENT -->
+<div class="content">
+  <div class="wrapper">
+    <div class="card">
 
-    <div class="header">
-      <h3>SELAMAT DATANG DI WEBSITE
-      LAPORAN KEUANGAN PERUM NINDYA ASRI 1
-      KEL.METESEH KEC.BOJA , KAB.KENDAL</h3>
+      <h3>PERUM NINDYA ASRI 1<br>KEL. METESEH KEC. BOJA</h3>
+      <h4>Silahkan Input</h4>
+
+      <label>Tanggal</label>
+      <input type="date" id="tanggal">
+
+      <label>Jenis Transaksi</label>
+      <select id="jenis">
+        <option>Pemasukan</option>
+        <option>Pengeluaran</option>
+      </select>
+
+      <label>Keterangan</label>
+      <input type="text" id="keterangan">
+
+      <label>Jumlah</label>
+      <input type="number" id="jumlah">
+
+      <button class="simpan" onclick="simpan()">💾 Simpan Data</button>
+      <div id="msg"></div>
 
     </div>
-
-    <h4>Silahkan Input</h4>
-
-    <label>Tanggal</label>
-    <input type="date" id="tanggal">
-
-    <label>Jenis Transaksi</label>
-    <select id="jenis">
-      <option>Pemasukan</option>
-      <option>Pengeluaran</option>
-    </select>
-
-    <label>Keterangan</label>
-    <input type="text" id="keterangan" placeholder="Contoh: Iuran warga">
-
-    <label>Jumlah</label>
-    <input type="number" id="jumlah" placeholder="Rp">
-
-    <button class="simpan" onclick="simpan()">💾 Simpan Data</button>
-    <button class="logout-fixed" onclick="logout()" title="Logout">🚪</button>
-    <div id="msg"></div>
-
-  </div>
-
-  <div class="footer">
-    © 2026 — Andy Pram
+    <div class="footer">© 2026 — Andy Pram</div>
   </div>
 </div>
 
 <script>
-function simpan(){
-  document.getElementById('msg').innerText = '⏳ Menyimpan data...';
-
-  fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec', {
-    method: 'POST',
-    body: new URLSearchParams({
-      tanggal: document.getElementById('tanggal').value,
-      jenis: document.getElementById('jenis').value,
-      keterangan: document.getElementById('keterangan').value,
-      jumlah: document.getElementById('jumlah').value
-    })
-  })
-  .then(res => res.text())
-  .then(() => {
-    document.getElementById('msg').innerText = '✅ Data berhasil disimpan';
-    document.getElementById('tanggal').value = '';
-    document.getElementById('keterangan').value = '';
-    document.getElementById('jumlah').value = '';
-  })
-  .catch(() => {
-    document.getElementById('msg').innerText = '❌ Gagal menyimpan data';
-  });
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('collapsed');
 }
-
 function logout(){
-  if (confirm("Yakin ingin logout?")) {
+  if(confirm('Yakin ingin logout?')){
     sessionStorage.clear();
-    location.href = "login.html";
+    location.href='login.html';
   }
 }
-
-
+function simpan(){
+  document.getElementById('msg').innerText='⏳ Menyimpan...';
+}
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
