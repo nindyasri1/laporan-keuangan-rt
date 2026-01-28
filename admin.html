@@ -371,6 +371,23 @@ td:last-child{
   text-align:center;
   font-weight:700;
 }
+  /* LAPORAN data warga */
+.tabel{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+.tabel th, .tabel td{
+  padding:8px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+}
+
+.tabel th{
+  background:#ecfdf5;
+  color:#065f46;
+}
 
 </style>
 </head>
@@ -422,8 +439,17 @@ if(sessionStorage.getItem('admin')!=='true'){
     </div>
   </div>
 </li>
+<li>
+  <a href="#" onclick="openTabelWarga()">
+    👥 <span class="text">Tabel Data Warga</span>
+  </a>
+</li>
 
-    <li><a href="#"><span>👥</span><span class="text">Data Warga</span></a></li>
+<li>
+  <a href="#" onclick="openFormWarga()">
+    ➕ <span class="text">Registrasi Warga</span>
+  </a>
+</li>
 <li>
   <a href="#" onclick="openLapor()">
     📝 <span class="text">Lapor & Saran</span>
@@ -642,6 +668,64 @@ function loadLaporan(){
     });
 }
 </script>
+   // SCRIPT MENU WARGA 
+<script>
+function openTabelWarga(){
+  document.getElementById('tabelWarga').style.display='flex';
+  loadWarga();
+}
+function closeTabelWarga(){
+  document.getElementById('tabelWarga').style.display='none';
+}
+function openFormWarga(){
+  document.getElementById('formWarga').style.display='flex';
+}
+function closeFormWarga(){
+  document.getElementById('formWarga').style.display='none';
+}
+
+function loadWarga(){
+  const body=document.getElementById('wargaList');
+  body.innerHTML='<tr><td colspan="5">⏳ Memuat...</td></tr>';
+
+  fetch('URL_APPS_SCRIPT_KAMU')
+    .then(res=>res.json())
+    .then(data=>{
+      body.innerHTML='';
+      data.slice(1).forEach((r,i)=>{
+        body.innerHTML+=`
+          <tr>
+            <td>${i+1}</td>
+            <td>${r[1]}</td>
+            <td>${r[2]}</td>
+            <td>${r[3]}</td>
+            <td>${r[4]}</td>
+          </tr>`;
+      });
+    });
+}
+
+function simpanWarga(){
+  const msg=document.getElementById('msgWarga');
+  msg.innerText='⏳ Menyimpan...';
+
+  fetch('URL_APPS_SCRIPT_KAMU',{
+    method:'POST',
+    body:new URLSearchParams({
+      action:'warga',
+      nama:namaWarga.value,
+      rumah:rumahWarga.value,
+      hp:hpWarga.value,
+      status:statusWarga.value
+    })
+  })
+  .then(()=>{
+    msg.innerText='✅ Data warga tersimpan';
+    setTimeout(closeFormWarga,1200);
+  })
+  .catch(()=>msg.innerText='❌ Gagal menyimpan');
+}
+</script>
 
 
 <!-- POPUP LAPOR & SARAN -->
@@ -691,9 +775,60 @@ function loadLaporan(){
     <button class="btn-ok" onclick="closeLaporan()">Tutup</button>
   </div>
 </div>
+<!-- POPUP DATA WARGA DAN REGIST -->  
+<div class="modal" id="tabelWarga">
+  <div class="modal-box" style="max-width:750px">
+    <h3>👥 Tabel Data Warga</h3>
+
+    <table class="tabel">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>No Rumah</th>
+          <th>No HP</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="wargaList"></tbody>
+    </table>
+
+    <button class="btn-cancel" onclick="closeTabelWarga()">Tutup</button>
+  </div>
+</div>
+<!-- POPUP DATA WARGA DAN REGIST -->    
+  <div class="modal" id="formWarga">
+  <div class="modal-box">
+    <h3>➕ Registrasi Warga Baru</h3>
+
+    <label>Nama Lengkap</label>
+    <input type="text" id="namaWarga">
+
+    <label>No Rumah</label>
+    <input type="text" id="rumahWarga">
+
+    <label>No HP</label>
+    <input type="tel" id="hpWarga">
+
+    <label>Status</label>
+    <select id="statusWarga">
+      <option>Warga Tetap</option>
+      <option>Kontrak</option>
+      <option>Kos</option>
+    </select>
+
+    <div class="modal-btn">
+      <button class="btn-cancel" onclick="closeFormWarga()">Batal</button>
+      <button class="btn-send" onclick="simpanWarga()">Simpan</button>
+    </div>
+
+    <div id="msgWarga"></div>
+  </div>
+</div>
 
 </body>
 </html>
+
 
 
 
