@@ -133,17 +133,27 @@ function login(){
   .then(res=>{
     if(res.trim()==='success'){
       sessionStorage.setItem('admin','true');
-      location.href='index.html';
+      location.href='admin.html';
     }else{
       msg.innerText='❌ Password salah';
     }
   });
 }
+  
+function login(){
+  const btn = document.querySelector('button');
+  btn.disabled = true;
+  btn.innerText = '⏳';
+
+  ...
+}
+
 </script>
 
 
 </body>
 </html>
+
 
 
 
