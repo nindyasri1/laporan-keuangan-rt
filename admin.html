@@ -688,7 +688,7 @@ function loadWarga(){
   const body=document.getElementById('wargaList');
   body.innerHTML='<tr><td colspan="5">⏳ Memuat...</td></tr>';
 
-  fetch('URL_APPS_SCRIPT_KAMU')
+  fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec')
     .then(res=>res.json())
     .then(data=>{
       body.innerHTML='';
@@ -709,7 +709,7 @@ function simpanWarga(){
   const msg=document.getElementById('msgWarga');
   msg.innerText='⏳ Menyimpan...';
 
-  fetch('URL_APPS_SCRIPT_KAMU',{
+  fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec',{
     method:'POST',
     body:new URLSearchParams({
       action:'warga',
@@ -828,6 +828,7 @@ function simpanWarga(){
 
 </body>
 </html>
+
 
 
 
