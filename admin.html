@@ -668,8 +668,9 @@ function loadLaporan(){
     });
 }
 </script>
-   // SCRIPT MENU WARGA 
+
 <script>
+     // SCRIPT MENU WARGA 
 function openTabelWarga(){
   document.getElementById('tabelWarga').style.display='flex';
   loadWarga();
@@ -686,9 +687,9 @@ function closeFormWarga(){
 
 function loadWarga(){
   const body=document.getElementById('wargaList');
-  body.innerHTML='<tr><td colspan="5">⏳ Memuat...</td></tr>';
+  body.innerHTML='<tr><td colspan="6">⏳ Memuat...</td></tr>';
 
-  fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec')
+  fetch('https://script.google.com/macros/s/AKfycbwxl263rf_wXePPx8-4Nabz_6vW_1FxeFfe7MtC8mleDq_6AbEP1wPLkh2XIgdprBJPSg/exec?action=warga')
     .then(res=>res.json())
     .then(warga=>{
       body.innerHTML='';
@@ -834,6 +835,7 @@ function simpanWarga(){
 
 </body>
 </html>
+
 
 
 
