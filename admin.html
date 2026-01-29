@@ -861,16 +861,26 @@ function uploadFoto(){
         file: reader.result
       })
     })
-    .then(()=> {
-      msg.innerText='✅ Foto berhasil diupload';
-      setTimeout(()=>{
-        closeUploadFoto();
-        loadGaleri();
-      },1200);
+    .then(res => res.text())
+    .then(res => {
+      if(res.trim() === 'OK'){
+        msg.innerText='✅ Foto berhasil diupload';
+        setTimeout(()=>{
+          closeUploadFoto();
+          loadGaleri();
+        },1200);
+      } else {
+        msg.innerText='❌ Upload gagal';
+      }
+    })
+    .catch(err=>{
+      msg.innerText='❌ Error upload';
+      console.error(err);
     });
   };
   reader.readAsDataURL(file);
 }
+
 </script>
 
 
@@ -996,6 +1006,7 @@ function uploadFoto(){
 </div>
 </body>
 </html>
+
 
 
 
